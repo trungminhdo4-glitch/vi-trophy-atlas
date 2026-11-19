@@ -6,7 +6,9 @@
 // vendor/makefun-frontend.ts as it is: the scorer requires dossier.json to be byte for byte what its own copy writes.
 //
 // VI Trophy Atlas: app/ holds the checklist with saved progress, export/import, kind filters, a spoiler setting,
-// the platinum roadmap, the missables view and a cited guide in our own words for each of the 55 trophies.
+// the platinum roadmap (a 7-stage track, then each stage), the missables view and a cited guide in our own words
+// for each of the 55 trophies. Every checklist row names its grade and the sources its guide cites; the guide panel
+// links them under the trophy's chips, and a coverage line counts the official list, hidden and cited trophies.
 // screenshots/ comes from tools/capture.mjs (headless Edge on the real app); shots.json lists the views.
 //
 // Serve it locally with `node serve.ts`, then open http://localhost:8080.
