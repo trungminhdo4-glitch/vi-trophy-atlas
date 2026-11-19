@@ -8,9 +8,28 @@ import { gradeMedal, missableBadge, trophyTitle } from './view-list.js';
 export function renderRoadmap(container, roadmap, trophies, ctx) {
   fill(container, 
     h('div', { class: 'facts' }, roadmap.facts.map((f) => h('div', { class: 'fact' }, h('strong', { text: f.value }), h('span', { text: f.label }), h('small', { text: f.sources.map((s) => ctx.sources[s].name.split(' – ')[0]).join(', ') })))),
+    renderStageTrack(roadmap.stages, trophies, ctx),
     h('p', { class: 'muted', text: roadmap.summary }),
     h('ol', { class: 'stages' }, roadmap.stages.map((stage) => renderStage(stage, trophies.filter((t) => t.stage === stage.stage), ctx))),
   );
+}
+
+// The whole route at a glance: one cell per stage, in play order, with its share of trophies earned
+// and a red edge on the stage that holds a missable trophy.
+function renderStageTrack(stages, trophies, ctx) {
+  return h('ol', { class: 'stage-track', 'aria-label': 'Roadmap stages' }, stages.map((stage) => {
+    const list = trophies.filter((t) => t.stage === stage.stage);
+    const done = list.filter((t) => ctx.isEarned(t.id)).length;
+    const risky = list.some((t) => t.missable === 'missable');
+    return h(
+      'li',
+      { class: `track-cell${risky ? ' has-miss' : ''}${done === list.length ? ' is-done' : ''}` },
+      h('span', { class: 'track-num', text: stage.stage }),
+      h('span', { class: 'track-name', text: stage.title.split(':')[0] }),
+      h('span', { class: 'track-count', text: `${done}/${list.length}` }),
+      h('span', { class: 'track-bar' }, h('span', { style: `width:${list.length ? Math.round((done / list.length) * 100) : 0}%` })),
+    );
+  }));
 }
 
 function renderStage(stage, list, ctx) {

@@ -28,10 +28,12 @@ const sample = {
 };
 
 const shots = [
-  { file: '1-checklist-guide.jpg', hash: '#/trophy/28' },
+  // Cover: the list from the top (platinum, then the story trophies the spoiler setting hides) beside a cited guide.
+  { file: '1-checklist-guide.jpg', hash: '#/trophy/28', then: 'document.getElementById("rows").scrollTop = 0' },
   { file: '2-roadmap.jpg', hash: '#/roadmap', then: 'location.hash = "#/trophy/25"' },
   { file: '3-missables.jpg', hash: '#/missables', then: 'location.hash = "#/trophy/40"' },
-  { file: '4-filter-collectibles.jpg', hash: '#/trophy/14', then: '[...document.querySelectorAll(".fchip")].find(b => b.textContent.startsWith("Collectibles")).click()' },
+  // The spoiler setting at work: Story filter, unearned story trophies concealed, one guide opened on request.
+  { file: '4-spoilers-story.jpg', hash: '#/trophy/9', then: '[...document.querySelectorAll(".fchip")].find(b => b.textContent.startsWith("Story")).click(); [...document.querySelectorAll("#detail button")].find(b => b.textContent.startsWith("Show the guide")).click()' },
 ];
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

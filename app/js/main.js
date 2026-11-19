@@ -86,6 +86,22 @@ function renderSummary() {
   );
 }
 
+// The coverage line: what the data holds, counted from trophies.json, never typed in by hand.
+function renderCoverage() {
+  const cited = trophies.filter((t) => t.guide && t.sources.length > 0);
+  const minSrc = Math.min(...cited.map((t) => t.sources.length));
+  const maxSrc = Math.max(...cited.map((t) => t.sources.length));
+  const hidden = trophies.filter((t) => t.hidden).length;
+  const grades = GRADE_ORDER.map((g) => `${trophies.filter((t) => t.grade === g).length} ${g}`).join(', ');
+  const missable = trophies.filter((t) => t.missable).length;
+  byId('coverage').replaceChildren(
+    h('strong', { text: `${trophies.length}/${trophies.length} official PSN trophies` }),
+    ` (${grades}) · `,
+    h('strong', { text: `${cited.length} guides, each citing ${minSrc}–${maxSrc} sources` }),
+    ` · ${hidden} hidden on PSN · ${missable} flagged missable/caution · progress auto-saved in this browser`,
+  );
+}
+
 function renderFilters() {
   byId('chips').replaceChildren(
     ...FILTERS.map((f) => h('button', { type: 'button', class: `fchip${ui.filter === f.id ? ' on' : ''}`, 'aria-pressed': String(ui.filter === f.id), onclick: () => { ui.filter = f.id; render(); } }, f.label, h('small', { text: countFor(trophies, f.id) }))),
@@ -102,6 +118,7 @@ function renderTabs() {
 
 function render() {
   renderSummary();
+  renderCoverage();
   renderFilters();
   renderTabs();
   const shown = filterTrophies(trophies, ui, (id) => isEarned(state, id), state.prefs.spoiler);

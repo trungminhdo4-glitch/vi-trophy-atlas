@@ -2,7 +2,7 @@
 
 import { h, add, formatCount } from './dom.js';
 import { isConcealed, KIND_LABELS } from './filters.js';
-import { gradeMedal, missableBadge } from './view-list.js';
+import { gradeMedal, missableBadge, sourceShortName } from './view-list.js';
 
 export function renderDetail(panel, trophy, ctx) {
   panel.replaceChildren();
@@ -24,14 +24,20 @@ export function renderDetail(panel, trophy, ctx) {
       trophy.hidden ? h('span', { class: 'chip', text: 'Hidden on PSN' }) : null,
       missableBadge(trophy),
     ),
+    renderCitedFrom(trophy, ctx),
     trophy.missNote ? h('div', { class: `callout ${trophy.missable === 'missable' ? 'callout-miss' : 'callout-caution'}` }, h('strong', { text: trophy.missable === 'missable' ? 'Missable: ' : 'Caution: ' }), trophy.missNote) : null,
-    h('button', { class: `earn-btn${earned ? ' on' : ''}`, type: 'button', onclick: () => ctx.onToggle(trophy.id, !earned) }, earned ? '✓ Earned' : 'Mark as earned'),
-    trophy.count && trophy.id !== 1 ? renderCounter(trophy, ctx, earned) : null,
+    h(
+      'div',
+      { class: 'track-line' },
+      h('button', { class: `earn-btn${earned ? ' on' : ''}`, type: 'button', onclick: () => ctx.onToggle(trophy.id, !earned) }, earned ? '✓ Earned' : 'Mark as earned'),
+      trophy.count && trophy.id !== 1 ? renderCounter(trophy, ctx, earned) : h('span', { class: 'muted saved-note', text: 'Saved in this browser · Export to back up' }),
+    ),
   );
-  if (concealed) {
+  if (concealed && !ctx.revealed.has(trophy.id)) {
     add(panel, h('button', { class: 'ghost', type: 'button', onclick: () => ctx.onReveal(trophy.id) }, 'Show the guide anyway'));
-    if (!ctx.revealed.has(trophy.id)) return;
+    return;
   }
+  if (concealed) add(panel, h('p', { class: 'unconf-note' }, 'Guide shown on request: the trophy name and description stay hidden until you earn it.'));
   add(panel, 
     h('h3', { text: 'Guide' }),
     trophy.verified === 'unconfirmed' ? h('p', { class: 'unconf-note' }, 'Method not fully confirmed by the sources yet: treat the steps as the best current reading.') : null,
@@ -58,6 +64,12 @@ function renderCounter(trophy, ctx, earned) {
       h('button', { type: 'button', 'aria-label': 'Increase', onclick: () => ctx.onCount(trophy.id, value + step) }, '+'),
     ),
   );
+}
+
+// One line under the chips naming every guide this trophy's text draws on, each a link the reader may follow.
+function renderCitedFrom(trophy, ctx) {
+  const links = trophy.sources.map((key) => h('a', { href: ctx.sources[key].url, target: '_blank', rel: 'noopener noreferrer', text: sourceShortName(ctx.sources[key]) }));
+  return h('p', { class: 'cited-from' }, h('span', { class: 'cite-mark', text: `✓ Cited from ${links.length} sources:` }), ...links.flatMap((a, i) => (i ? [' · ', a] : [a])));
 }
 
 function renderSource(src) {

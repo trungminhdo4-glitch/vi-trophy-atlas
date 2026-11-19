@@ -1,6 +1,6 @@
 [
-  { "file": "1-checklist-guide.jpg", "path": "/#/trophy/28", "note": "checklist with sample progress, missable trophy guide and sources open", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "2-roadmap.jpg", "path": "/#/roadmap", "open": 25, "note": "platinum roadmap stages with Strangers & Freaks guide", "viewport": { "width": 1280, "height": 800 } },
+  { "file": "1-checklist-guide.jpg", "path": "/#/trophy/28", "note": "checklist from the top with grades, citations and spoiler-hidden story trophies; missable trophy guide with its sources open", "viewport": { "width": 1280, "height": 800 } },
+  { "file": "2-roadmap.jpg", "path": "/#/roadmap", "open": 25, "note": "platinum roadmap: 7-stage track, facts and stages, with the Strangers & Freaks guide", "viewport": { "width": 1280, "height": 800 } },
   { "file": "3-missables.jpg", "path": "/#/missables", "open": 40, "note": "missable and caution flags, story-locked and unconfirmed lists", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "4-filter-collectibles.jpg", "path": "/#/trophy/14", "filter": "collectible", "note": "Collectibles filter with counters", "viewport": { "width": 1280, "height": 800 } }
+  { "file": "4-spoilers-story.jpg", "path": "/#/trophy/9", "filter": "story", "note": "Story filter with the spoiler setting on: unearned story trophies concealed, one guide shown on request", "viewport": { "width": 1280, "height": 800 } }
 ]

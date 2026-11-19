@@ -64,8 +64,19 @@ function renderRow(t, ctx) {
       h('div', { class: 'row-title' }, h('span', { class: 'row-name', text: trophyTitle(t, concealed) }), missableBadge(t), t.verified === 'unconfirmed' ? h('span', { class: 'badge badge-unconf', text: 'Unconfirmed' }) : null),
       h('div', { class: 'row-desc', text: trophyDescription(t, concealed) }),
     ),
-    h('div', { class: 'row-meta' }, h('span', { class: 'kind', text: KIND_LABELS[t.kind] }), count ? h('span', { class: 'count', text: count }) : null),
+    h(
+      'div',
+      { class: 'row-meta' },
+      h('span', { class: 'meta-line' }, h('span', { class: `grade-word grade-${t.grade}`, text: t.grade }), ' · ', h('span', { class: 'kind', text: KIND_LABELS[t.kind] })),
+      count ? h('span', { class: 'count', text: count }) : null,
+    ),
+    h('div', { class: 'row-cite', title: 'Sources cited in this trophy guide' }, h('span', { class: 'cite-mark', text: '✓ cited' }), t.sources.map((key) => sourceShortName(ctx.sources[key])).join(' · ')),
   );
+}
+
+// "GTABase – GTA 6 Trophy Guide …" → "GTABase": the publisher part of a source's name.
+export function sourceShortName(src) {
+  return src.name.split(' – ')[0].replace(/ GTA VI Wiki$/, '');
 }
 
 function progressText(t, ctx) {
