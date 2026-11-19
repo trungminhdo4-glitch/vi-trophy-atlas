@@ -16,8 +16,8 @@ const arg = (name, fallback) => {
 const profile = arg('--profile');
 if (!profile) throw new Error('--profile <dir> is required (keep it outside the repository)');
 const edge = arg('--edge', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe');
-const PORT = 8094;
-const DEBUG_PORT = 9333;
+const PORT = Number(arg("--port", "8097"));
+const DEBUG_PORT = Number(arg("--debug-port", "9447"));
 const ORIGIN = `http://localhost:${PORT}`;
 const MAX_BYTES = 256 * 1024;
 
@@ -79,7 +79,19 @@ function cdpClient(wsUrl) {
   };
 }
 
+async function portAnswers(url) {
+  try {
+    await fetch(url, { signal: AbortSignal.timeout(800) });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function main() {
+  // Never attach to someone else's browser or server: both ports must be free before we start our own.
+  if (await portAnswers(`http://127.0.0.1:${DEBUG_PORT}/json/version`)) throw new Error(`debug port ${DEBUG_PORT} is already in use`);
+  if (await portAnswers(`${ORIGIN}/`)) throw new Error(`port ${PORT} is already in use`);
   const server = spawn(process.execPath, ['serve.ts', '--port', String(PORT)], { cwd: root, stdio: 'ignore' });
   rmSync(profile, { recursive: true, force: true });
   mkdirSync(profile, { recursive: true });
@@ -102,7 +114,8 @@ async function main() {
   try {
     await waitFor(() => fetch(`${ORIGIN}/index.html`).then((r) => r.ok), 'serve.ts');
     const targets = await waitFor(() => fetch(`http://127.0.0.1:${DEBUG_PORT}/json/list`).then((r) => r.json()), 'Edge DevTools');
-    const page = targets.find((t) => t.type === 'page');
+    const page = targets.find((t) => t.type === 'page' && t.url === 'about:blank');
+    if (!page) throw new Error('our about:blank page was not found on the debug port');
     const cdp = cdpClient(page.webSocketDebuggerUrl);
     await cdp.ready;
     cdp.on((msg) => {
@@ -125,8 +138,10 @@ async function main() {
     await cdp.send('Runtime.evaluate', { expression: `localStorage.setItem('vi-trophy-atlas/v1', ${JSON.stringify(JSON.stringify(sample))})` });
 
     for (const shot of shots) {
+      await cdp.send('Page.navigate', { url: 'about:blank' });
+      await sleep(300);
       await cdp.send('Page.navigate', { url: `${ORIGIN}/${shot.hash}` });
-      await cdp.send('Page.reload', { ignoreCache: true });
+      await sleep(300);
       await waitFor(async () => (await cdp.send('Runtime.evaluate', { expression: 'document.querySelectorAll(".row").length', returnByValue: true })).result.value > 0, 'app render');
       if (shot.then) await cdp.send('Runtime.evaluate', { expression: shot.then });
       await sleep(500);

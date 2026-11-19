@@ -5,10 +5,9 @@
 // screenshots, the first load's files and bytes, and your source), with the vendored make.fun library. Leave
 // vendor/makefun-frontend.ts as it is: the scorer requires dossier.json to be byte for byte what its own copy writes.
 //
-// Only the plumbing, not a winner: a plain checklist of the 55 trophies with a one-line hint each. Write a real guide
-// for every trophy in your own words, a roadmap to the platinum, filters and a spoiler setting in app/, put 3 or 4 PNG
-// or JPEG screenshots of it in screenshots/ (the first by name is the cover; shots.json says which views this
-// starter's were taken of), and run it.
+// VI Trophy Atlas: app/ holds the checklist with saved progress, export/import, kind filters, a spoiler setting,
+// the platinum roadmap, the missables view and a cited guide in our own words for each of the 55 trophies.
+// screenshots/ comes from tools/capture.mjs (headless Edge on the real app); shots.json lists the views.
 //
 // Serve it locally with `node serve.ts`, then open http://localhost:8080.
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
@@ -34,3 +33,4 @@ writeFileSync(
   join(out, 'dossier.json'),
   buildDossier(out, { text_max_bytes: 163840, screenshots: { max: 4, max_bytes: 262144 }, app_max_files: 993, app_max_bytes: 50331648 }),
 );
+console.log(`VI Trophy Atlas handed in to ${out}: app/, screenshots/ and dossier.json`);
