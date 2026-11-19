@@ -3,23 +3,60 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
-<link rel="stylesheet" href="style.css">
+<title>VI Trophy Atlas – GTA VI PS5 trophy guide & tracker</title>
+<meta name="description" content="Offline guide and tracker for the 55 PS5 trophies of Grand Theft Auto VI: checklist, roadmap, missables, cited guides.">
+<link rel="icon" href="img/emblem.svg">
+<link rel="stylesheet" href="css/app.css">
+<script type="module" src="js/main.js"></script>
 </head>
 <body>
-<header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
+<header class="topbar">
+  <div class="brand">
+    <img src="img/emblem.svg" alt="" width="40" height="40">
+    <div><h1>VI Trophy Atlas</h1><p>GTA VI · PS5 · 55 trophies · unofficial fan guide</p></div>
+  </div>
+  <div class="summary">
+    <div id="ring" class="ring"><span id="ring-text">0%</span></div>
+    <div><strong id="earned-count">0 / 55 earned</strong><div id="grade-stats" class="grade-stats"></div></div>
+  </div>
+  <div class="tools">
+    <label class="spoiler">Spoilers
+      <select id="spoiler">
+        <option value="story">Hide story trophies</option>
+        <option value="hidden">Hide all 28 hidden</option>
+        <option value="off">Show everything</option>
+      </select>
+    </label>
+    <button id="export" type="button">Export</button>
+    <label class="file-btn">Import<input id="import" type="file" accept="application/json,.json"></label>
+    <button id="reset" type="button" class="ghost">Reset</button>
+  </div>
 </header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
-<script type="module" src="app.js"></script>
+<nav class="tabs">
+  <button type="button" data-view="list" class="on">Checklist</button>
+  <button type="button" data-view="roadmap">Platinum roadmap</button>
+  <button type="button" data-view="missables">Missables</button>
+</nav>
+<main class="layout">
+  <section class="left">
+    <div id="list-view">
+      <div class="filterbar">
+        <div id="chips" class="chips-row"></div>
+        <div class="filter-line">
+          <input id="search" type="search" placeholder="Search trophies, missions, places…" aria-label="Search">
+          <select id="grade" aria-label="Grade"><option value="all">All grades</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select>
+          <select id="status" aria-label="Status"><option value="all">All</option><option value="todo">To do</option><option value="done">Earned</option></select>
+          <span id="shown" class="muted"></span>
+        </div>
+      </div>
+      <ul id="rows" class="rows"></ul>
+    </div>
+    <div id="roadmap-view" class="pane" hidden></div>
+    <div id="missables-view" class="pane" hidden></div>
+  </section>
+  <aside id="detail" class="detail" aria-live="polite"></aside>
+</main>
+<footer class="foot">Unofficial fan project, not affiliated with Rockstar Games or Sony. Trophy names and descriptions as PlayStation lists them; every guide is written for this app and cites its sources. Works offline; links open only when you follow them.</footer>
+<div id="toast" class="toast" role="status"></div>
 </body>
 </html>

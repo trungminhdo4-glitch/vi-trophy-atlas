@@ -1,0 +1,75 @@
+{
+  "summary": "One save, about 200 hours, difficulty around 4/10 (KeenGamer). No online, difficulty or mission-medal trophies, no mission replay, free roam after the credits. Cheats switch off trophies and saving for the session.",
+  "facts": [
+    { "label": "Time to platinum", "value": "≈ 200 h", "sources": ["kg", "gb", "ol"] },
+    { "label": "Difficulty", "value": "4 / 10", "sources": ["kg"] },
+    { "label": "Playthroughs", "value": "1", "sources": ["kg", "gb"] },
+    { "label": "Missable", "value": "1 possible", "sources": ["kg", "gb", "ol"] },
+    { "label": "Online trophies", "value": "0", "sources": ["kg", "gb", "ol"] }
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "title": "Chapter 1: set up early",
+      "when": "Opening hours",
+      "hours": "story start",
+      "text": "Play the story, but stop for the one possibly missable spot: Lucia's balcony meditation the morning after Down to Earth. Beat Cal at fishing after Feng Shui and finish one arcade game on the home TV.",
+      "warn": "Do Lucia's balcony meditation before Chapter 1 ends.",
+      "sources": ["kg", "gb", "ol"]
+    },
+    {
+      "stage": 2,
+      "title": "Chapter 2: open the side strands",
+      "when": "After Breakfast Run and Coffee Break",
+      "hours": "",
+      "text": "Character switching arrives after Breakfast Run. After Coffee Break start Billy's jobs at the Thrillbilly Mudclub and Bret's hunts, raid Kingpin Bowling, unlock Scooter Bros with Moses and the Real Estate app with Daily Driver. Scan vehicles and WAiNK spots as you drive.",
+      "warn": "",
+      "sources": ["gb", "ol"]
+    },
+    {
+      "stage": 3,
+      "title": "Chapters 3–4: heists, strands and money",
+      "when": "Vice City opens up",
+      "hours": "story + side ≈ 60–80 h (stages 1–4)",
+      "text": "Play Race Against Yago as soon as it shows up. Take Yasmani's jewelry jobs (Snap Gun), Randy's car orders after Key Cloner, Andy's strand as Lucia, Tyrone's labs as Jason and Credit Check for the Dye Pack Jammer. Near the end of Chapter 4 take That's Where The Money Is… and rob vaults with your partner.",
+      "warn": "Race Against Yago is time-sensitive (Output Lag).",
+      "sources": ["gb", "ol", "kg"]
+    },
+    {
+      "stage": 4,
+      "title": "Endgame: the final mission",
+      "when": "Chapter 5",
+      "hours": "",
+      "text": "Spend the vault money on garages and shops, then play Operation Savage Glory and the finale. Keep an untouched manual save from before the last mission.",
+      "warn": "Make a separate save before the final mission.",
+      "sources": ["ol", "gb"]
+    },
+    {
+      "stage": 5,
+      "title": "Post-game: the 100% checklist",
+      "when": "After the credits",
+      "hours": "≈ 100 h",
+      "text": "Work through the in-game 100% list: all robberies, all shooting range golds, every drone trial, Bret's 15 decks, the shipwrecks, then the share-based lists (vehicles, meditations, challenges, stunts, WAiNK, cards). Most collectible and activity trophies fall out of it.",
+      "warn": "",
+      "sources": ["kg", "gb"]
+    },
+    {
+      "stage": 6,
+      "title": "Secrets: still unconfirmed",
+      "when": "Any time",
+      "hours": "",
+      "text": "Five hidden trophies have no confirmed method yet. The guides here give the best reading of each description; check them again when the guide sites update.",
+      "warn": "",
+      "sources": ["kg", "gb", "ol"]
+    },
+    {
+      "stage": 7,
+      "title": "Platinum and cleanup",
+      "when": "Last",
+      "hours": "≈ 10–20 h",
+      "text": "Finish the remaining stranger strands for Strangers & Freaks and anything left over. The platinum pops with the 54th trophy.",
+      "warn": "",
+      "sources": ["kg", "gb"]
+    }
+  ]
+}
